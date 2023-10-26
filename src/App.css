@@ -1,0 +1,170 @@
+body,
+h1 {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+em {
+  background: rgb(255, 0, 0);
+  font-style: normal;
+}
+
+/* start jacob's edits */
+
+.background {
+  background-color: #fff;
+}
+
+.parent-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.favorites {
+  background-color: #efefef;
+  color: black;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #efefef;
+  padding: 10px;
+  margin-left: 300px;
+}
+
+.link-button {
+  background-color: #fff;
+  color: black;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #efefef;
+  padding: 10px;
+}
+
+.hits {
+  display: flex;
+  flex-wrap: wrap; /* Allow hits to wrap to the next line */
+  margin: -10px; /* Adjust margin to create spacing between hits */
+}
+
+.hit {
+  flex: 1; /* Occupy equal width for each hit in a row */
+  display: flex;
+  align-items: flex-start;
+  /* background-color: #dcf3fc; */
+}
+
+.hit-thumbnail {
+  width: 200px;
+  height: 200px;
+  margin-right: 20px;
+}
+
+.hit-thumbnail img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.hit-content {
+  flex-grow: 1;
+  margin-right: 20px;
+}
+
+.flag {
+  margin-left: 10px; /* Add spacing between states_name_en and flag text */
+  font-size: .75rem;
+}
+
+.flag-top {
+  padding: 5px;
+  border-radius: 3px;
+  background-color: #37c2f9;
+  color: white;
+}
+
+.flag-bottom {
+  padding: 5px;
+  border-radius: 3px;
+  background-color: #ff8800;
+  color: white;
+}
+
+.clearRefinements {
+  margin-bottom: 10px;
+}
+
+/* end jacob's edits */
+
+.header {
+  display: flex;
+  align-items: center;
+  min-height: 70px;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  color: #000;
+  margin-bottom: 1rem;
+  background-color: #dcf3fc;
+}
+
+.header a {
+  color: #000000;
+  text-decoration: none;
+  color: #0c5f7f;
+}
+
+.header-title {
+  margin: 20 auto auto;
+  font-size: 2rem;
+  font-weight: normal;
+  color: #1a86b0;
+}
+
+.header-subtitle {
+  font-size: 1.2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.search-panel {
+  display: flex;
+  width: 100%;
+}
+
+.search-panel__filters {
+  border-color: #efefef;
+  border-width: 3px;
+  border-style: solid;
+  padding: 20px;
+  color: black;
+  /* background-image: linear-gradient(to left, #efefef, #fff); */
+  flex: 1;
+  max-width: 300px;
+  margin-right: 20px;
+}
+
+.search-panel__results {
+  flex: 3;
+}
+
+.searchbox {
+  margin-bottom: 2rem;
+}
+
+.pagination {
+  margin: 2rem auto;
+  text-align: center;
+}

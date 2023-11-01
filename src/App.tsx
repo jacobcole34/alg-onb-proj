@@ -5,6 +5,7 @@ import {
   DynamicWidgets,
   RefinementList,
   ClearRefinements,
+  CurrentRefinements,
   Highlight,
   Hits,
   InstantSearch,
@@ -12,12 +13,22 @@ import {
   SearchBox,
 } from 'react-instantsearch';
 import type { Hit } from 'instantsearch.js';
+import aa from 'search-insights';
+import type { SendEventForHits } from 'instantsearch.js/es/lib/utils';
 import './App.css';
 
 const searchClient = algoliasearch(
   '4SKQ3KZ62A',
   'a54a9c30ef9bf61a392498d6db48f6b3'
 );
+
+aa('init', {
+  appId: '4SKQ3KZ62A',
+  apiKey: 'a54a9c30ef9bf61a392498d6db48f6b3',
+  partial: true,
+  useCookie: true,
+  cookieDuration: 1 * 15552000000,
+});
 
 export function App() {
   
@@ -39,6 +50,7 @@ export function App() {
           />
           <div className="search-panel">
             <div className="search-panel__filters">
+              <CurrentRefinements includedAttributes={['category','states_name_en']}/>
               <ClearRefinements 
                 includedAttributes={['category','states_name_en']}
                 translations={{
@@ -46,7 +58,7 @@ export function App() {
                 }}
                 className="clearRefinements"
                 />
-              <DynamicWidgets fallback={RefinementList}>
+              <DynamicWidgets fallbackComponent={RefinementList}>
                 <RefinementList
                   attribute={'category'}
                 />
@@ -75,7 +87,7 @@ export function App() {
 
 type HitProps = {
   hit: Hit;
-  sendEvent: any;
+  sendEvent: SendEventForHits;
 };
 
 
@@ -96,7 +108,6 @@ function Hit({ hit, sendEvent }: HitProps) {
   }
 
   return (
-    
      <article className="hit">
       {hit.image && (
         <div className="hit-thumbnail">
@@ -120,31 +131,32 @@ function Hit({ hit, sendEvent }: HitProps) {
           )}
         </p>
         <p className="parent-container">
-        <a href={hit.link}><button className="link-button">Learn More</button></a>
-        <FavoriteButton {...hit}/><Highlight attribute="region_en" hit={hit} />
+        <a href={hit.link} target="_blank"><button className="link-button">Learn More</button></a>
+        <FavoriteButton hit={hit} sendEvent={sendEvent} /><Highlight attribute="region_en" hit={hit} />
         </p>
       </div>
     </article>
   );
 }
 
-const FavoriteButton = (props) => {
-  const handleClick = () => {
-    console.log('JC: Conversion Clicked');
-    const apiKey = 'a54a9c30ef9bf61a392498d6db48f6b3';
 
-    const eventData = {
-      eventName: 'favorited',
-      eventType: 'conversion',
-      index: 'dev_unesco_transformed',
-      // userToken: "jacob",
-      objectIDs: [`${props.objectID}`],
-      timestamp: new Date().toISOString(),
-    };
-  };
+
+
+const FavoriteButton = ({hit, sendEvent}) => {
+  // handleClick = () => {
+
+  //   console.log('JC: Conversion Clicked');
+
+  //   hit.event.stopPropagation();
+
+  //   hit.sendEvent('conversion', hit, 'Added To Cart');
+
+  //   console.log('end handleclick')
+
+  // };
 
   return (
-    <button className="favorites" onClick={handleClick}>
+    <button className="favorites" onClick={()=> {event?.stopPropagation();sendEvent("conversion",hit,"Favorited")}}>
       🩵&nbsp;&nbsp;Save to Favorites
     </button>
   );

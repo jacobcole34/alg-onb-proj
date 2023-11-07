@@ -20,6 +20,10 @@ em {
 
 /* start jacob's edits */
 
+.category {
+  margin-top: 30px;
+}
+
 .background {
   background-color: #fff;
 }

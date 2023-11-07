@@ -15,6 +15,8 @@ import {
 import type { Hit } from 'instantsearch.js';
 import aa from 'search-insights';
 import type { SendEventForHits } from 'instantsearch.js/es/lib/utils';
+import { useConnector } from 'react-instantsearch';
+import connectAutocomplete from 'instantsearch.js/es/connectors/autocomplete/connectAutocomplete';
 import './App.css';
 
 const searchClient = algoliasearch(
@@ -61,6 +63,7 @@ export function App() {
               <DynamicWidgets fallbackComponent={RefinementList}>
                 <RefinementList
                   attribute={'category'}
+                  className="category"
                 />
                 <RefinementList
                   attribute={'states_name_en'}
@@ -143,22 +146,10 @@ function Hit({ hit, sendEvent }: HitProps) {
 
 
 const FavoriteButton = ({hit, sendEvent}) => {
-  // handleClick = () => {
-
-  //   console.log('JC: Conversion Clicked');
-
-  //   hit.event.stopPropagation();
-
-  //   hit.sendEvent('conversion', hit, 'Added To Cart');
-
-  //   console.log('end handleclick')
-
-  // };
 
   return (
-    <button className="favorites" onClick={()=> {event?.stopPropagation();sendEvent("conversion",hit,"Favorited")}}>
+    <button className="favorites" onClick={()=> {sendEvent("conversion",hit,"Favorited")}}>
       🩵&nbsp;&nbsp;Save to Favorites
     </button>
   );
 };
-

@@ -6,23 +6,33 @@ import {
   RefinementList,
   ClearRefinements,
   CurrentRefinements,
+  HierarchicalMenu,
   Highlight,
   Hits,
   InstantSearch,
   Pagination,
   SearchBox,
 } from 'react-instantsearch';
+import {
+  FrequentlyBoughtTogether,
+  RelatedProducts,
+} from '@algolia/recommend-react';
+import recommend from '@algolia/recommend';
 import type { Hit } from 'instantsearch.js';
 import aa from 'search-insights';
 import type { SendEventForHits } from 'instantsearch.js/es/lib/utils';
 import { useConnector } from 'react-instantsearch';
 import connectAutocomplete from 'instantsearch.js/es/connectors/autocomplete/connectAutocomplete';
+
 import './App.css';
 
 const searchClient = algoliasearch(
   '4SKQ3KZ62A',
   'a54a9c30ef9bf61a392498d6db48f6b3'
 );
+
+const recommendClient = recommend('4SKQ3KZ62A', 'a54a9c30ef9bf61a392498d6db48f6b3');
+const indexName = 'dev_unesco_transformed';
 
 aa('init', {
   appId: '4SKQ3KZ62A',
@@ -52,7 +62,7 @@ export function App() {
           />
           <div className="search-panel">
             <div className="search-panel__filters">
-              <CurrentRefinements includedAttributes={['category','states_name_en']}/>
+              <CurrentRefinements includedAttributes={['category','states_name_en']} className="current-refinements"/>
               <ClearRefinements 
                 includedAttributes={['category','states_name_en']}
                 translations={{
@@ -60,6 +70,13 @@ export function App() {
                 }}
                 className="clearRefinements"
                 />
+              <HierarchicalMenu
+                attributes={[
+                  "hierarchy.LVL0",
+                  "hierarchy.LVL1"
+                ]}
+                // separator={" > "}
+              />
               <DynamicWidgets fallbackComponent={RefinementList}>
                 <RefinementList
                   attribute={'category'}
@@ -148,7 +165,7 @@ function Hit({ hit, sendEvent }: HitProps) {
 const FavoriteButton = ({hit, sendEvent}) => {
 
   return (
-    <button className="favorites" onClick={()=> {sendEvent("conversion",hit,"Favorited")}}>
+    <button className="favorites" onClick={(event)=> {console.log('Conversion'); event.stopPropagation(); sendEvent("conversion",hit,"Favorited")}}>
       🩵&nbsp;&nbsp;Save to Favorites
     </button>
   );

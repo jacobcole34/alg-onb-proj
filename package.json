@@ -7,6 +7,8 @@
     "start": "parcel index.html"
   },
   "dependencies": {
+    "@algolia/recommend-js": "^1.10.0",
+    "@algolia/recommend-react": "^1.10.0",
     "algoliasearch": "4",
     "react": "18.1.0",
     "react-dom": "18.1.0",

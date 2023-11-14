@@ -4,13 +4,17 @@ h1 {
   padding: 0;
 }
 
+* {
+  border-radius: 0px;
+}
+
 a {
   text-decoration: none;
   color: inherit;
 }
 
 body {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: 'Cambria, Cochin, Georgia, Times, Times New Roman', serif;
 }
 
 em {
@@ -22,6 +26,7 @@ em {
 
 .category {
   margin-top: 30px;
+  margin-bottom: 20px;
 }
 
 .background {
@@ -104,6 +109,10 @@ em {
 }
 
 .clearRefinements {
+  margin-bottom: 10px;
+}
+
+.current-refinements {
   margin-bottom: 10px;
 }
 

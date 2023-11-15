@@ -1,5 +1,13 @@
+// React
 import React from 'react';
+
 import algoliasearch from 'algoliasearch/lite';
+import type { Hit } from 'instantsearch.js';
+import aa from 'search-insights';
+import type { SendEventForHits } from 'instantsearch.js/es/lib/utils';
+import { Autocomplete } from './components/Autocomplete';
+
+// React InstantSearch
 import {
   Configure,
   DynamicWidgets,
@@ -17,13 +25,12 @@ import {
   FrequentlyBoughtTogether,
   RelatedProducts,
 } from '@algolia/recommend-react';
-import recommend from '@algolia/recommend';
-import type { Hit } from 'instantsearch.js';
-import aa from 'search-insights';
-import type { SendEventForHits } from 'instantsearch.js/es/lib/utils';
-import { useConnector } from 'react-instantsearch';
-import connectAutocomplete from 'instantsearch.js/es/connectors/autocomplete/connectAutocomplete';
+// import { useConnector } from 'react-instantsearch';
 
+// Recommend
+import recommend from '@algolia/recommend';
+
+import { HitProps } from './typeDefs';
 import './App.css';
 
 const searchClient = algoliasearch(
@@ -57,6 +64,7 @@ export function App() {
           searchClient={searchClient}
           indexName="dev_unesco_transformed"
           insights={true}
+          routing
         >
           <Configure hitsPerPage={10} 
           />
@@ -75,7 +83,6 @@ export function App() {
                   "hierarchy.LVL0",
                   "hierarchy.LVL1"
                 ]}
-                // separator={" > "}
               />
               <DynamicWidgets fallbackComponent={RefinementList}>
                 <RefinementList
@@ -92,6 +99,11 @@ export function App() {
 
             <div className="search-panel__results">
               <SearchBox placeholder="Discover a heritage site near you..." className="searchbox" />
+              {/* <Autocomplete
+                placeholder="Search products"
+                detachedMediaQuery="none"
+                openOnFocus
+              /> */}
               <Hits hitComponent={Hit} />
 
               <div className="pagination">
@@ -104,11 +116,6 @@ export function App() {
     </div>
   );
 }
-
-type HitProps = {
-  hit: Hit;
-  sendEvent: SendEventForHits;
-};
 
 
 function Hit({ hit, sendEvent }: HitProps) {
@@ -158,9 +165,6 @@ function Hit({ hit, sendEvent }: HitProps) {
     </article>
   );
 }
-
-
-
 
 const FavoriteButton = ({hit, sendEvent}) => {
 

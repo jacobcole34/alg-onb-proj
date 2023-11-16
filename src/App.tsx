@@ -30,7 +30,8 @@ import {
 
 // Recommend
 import recommend from '@algolia/recommend';
-import { TrendingItem } from './components/TrendingItem';
+import { TrendingItem, ListView } from './components/TrendingItem';
+import { RelatedItem } from './components/RelatedItem'
 
 import { HitProps } from './typeDefs';
 import './App.css';
@@ -64,7 +65,7 @@ export function App() {
         >
       <header className="header">
         <h1 className="header-title">
-          <a href="/">UNESCO World Heritage Site Finder</a>
+          <a href="/">🌍 UNESCO World Heritage Site Finder</a>
         </h1>
         <SearchBox placeholder="Discover a heritage site near you..." className="searchbox" />
       </header>
@@ -74,7 +75,7 @@ export function App() {
           />
           <div className="search-panel">
             <div className="search-panel__filters">
-              <CurrentRefinements includedAttributes={['category','states_name_en']} className="current-refinements"/>
+              <CurrentRefinements includedAttributes={['category','flag', 'hierarchy.LVL0', 'hierarchy.LVL1']} className="current-refinements"/>
               <ClearRefinements 
                 includedAttributes={['category','states_name_en']}
                 translations={{
@@ -82,12 +83,15 @@ export function App() {
                 }}
                 className="clearRefinements"
                 />
-              <HierarchicalMenu
+              <div><HierarchicalMenu
                 attributes={[
                   "hierarchy.LVL0",
                   "hierarchy.LVL1"
                 ]}
-              />
+                limit={20}
+                showMore={true}
+                showMoreLimit={100}
+              /></div>
               <DynamicWidgets fallbackComponent={RefinementList}>
                 <RefinementList
                   attribute={'category'}
@@ -96,7 +100,6 @@ export function App() {
                 <RefinementList
                   attribute={'states_name_en'}
                   showMore={true}
-                  searchable
                 />
               </DynamicWidgets>
             </div>
@@ -117,6 +120,13 @@ export function App() {
                   indexName={indexName}
                   maxRecommendations={4}
                   itemComponent={TrendingItem}
+                  // view={ListView}
+                />
+                <FrequentlyBoughtTogether
+                  recommendClient={recommendClient}
+                  indexName={indexName}
+                  objectIDs={['c876a922f0bf8_dashboard_generated_id']}
+                  itemComponent={RelatedItem}
                 />
                 </div>
               </div>

@@ -10,7 +10,7 @@ a {
 }
 
 body {
-  font-family: 'Helvetica, Arial', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 em {
@@ -160,12 +160,11 @@ em {
   border-color: #efefef;
   border-width: 3px;
   border-style: solid;
-  padding: 20px;
+  padding: 10px;
   color: black;
   /* background-image: linear-gradient(to left, #efefef, #fff); */
   flex: 1;
-  max-width: 300px;
-  margin-right: 20px;
+  width: 300px;
 }
 
 .search-panel__results {
@@ -178,15 +177,24 @@ em {
 }
 
 .pagination {
+  margin: 2rem auto auto auto;
+  text-align: center;
+  list-style-type: none;
+  justify-content: center;
+}
+
+.trending ol {
   margin: 2rem auto;
   text-align: center;
+  list-style-type: none;
 }
 
 .trending {
   position: absolute;
   top: 0;
   right: 0;
-  margin-right: -40px;
+  margin-right: -32px;
   width: 300px;
   background-color: #dcf3fc;
+  list-style-type: none;
 }

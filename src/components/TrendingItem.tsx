@@ -8,9 +8,23 @@ const indexName = 'dev_unesco_transformed';
 export function TrendingItem({ item }) {
     console.log(item);
     return (
-        <>
+        <div className="trenditem">
+            <a href={item.link} target="_blank">
             <p>{item.name_en}</p>
-            <img src={item.image} style={{ maxWidth: '100%', height: 'auto' }} />
-        </>
+            <img src={item.image} style={{ maxWidth: '100%', height: 'auto' }}/>
+            </a>
+        </div>
+    );
+  }
+
+export function ListView(props) {
+    return (
+      <div>
+        {props.items.map(item => (
+          <div key={item.objectID}>
+            <props.itemComponent item={item} />
+          </div>
+        ))}
+      </div>
     );
   }

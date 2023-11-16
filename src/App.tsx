@@ -7,7 +7,7 @@ import aa from 'search-insights';
 import type { SendEventForHits } from 'instantsearch.js/es/lib/utils';
 import { Autocomplete } from './components/Autocomplete';
 
-// React InstantSearch
+// InstantSearch
 import {
   Configure,
   DynamicWidgets,
@@ -24,11 +24,13 @@ import {
 import {
   FrequentlyBoughtTogether,
   RelatedProducts,
+  TrendingItems
 } from '@algolia/recommend-react';
 // import { useConnector } from 'react-instantsearch';
 
 // Recommend
 import recommend from '@algolia/recommend';
+import { TrendingItem } from './components/TrendingItem';
 
 import { HitProps } from './typeDefs';
 import './App.css';
@@ -52,20 +54,22 @@ aa('init', {
 export function App() {
   
   return (
+    <div>
     <div className="background">
-      <header className="header">
-        <h1 className="header-title">
-          <a href="/">UNESCO World Heritage Site Finder</a>
-        </h1>
-      </header>
-
-      <div className="container">
-        <InstantSearch
+    <InstantSearch
           searchClient={searchClient}
           indexName="dev_unesco_transformed"
           insights={true}
           routing
         >
+      <header className="header">
+        <h1 className="header-title">
+          <a href="/">UNESCO World Heritage Site Finder</a>
+        </h1>
+        <SearchBox placeholder="Discover a heritage site near you..." className="searchbox" />
+      </header>
+
+      <div className="container">
           <Configure hitsPerPage={10} 
           />
           <div className="search-panel">
@@ -98,7 +102,6 @@ export function App() {
             </div>
 
             <div className="search-panel__results">
-              <SearchBox placeholder="Discover a heritage site near you..." className="searchbox" />
               {/* <Autocomplete
                 placeholder="Search products"
                 detachedMediaQuery="none"
@@ -108,11 +111,20 @@ export function App() {
 
               <div className="pagination">
                 <Pagination />
+                <div className="trending">                
+                  <TrendingItems
+                  recommendClient={recommendClient}
+                  indexName={indexName}
+                  maxRecommendations={4}
+                  itemComponent={TrendingItem}
+                />
+                </div>
               </div>
             </div>
           </div>
-        </InstantSearch>
       </div>
+      </InstantSearch>
+    </div>
     </div>
   );
 }

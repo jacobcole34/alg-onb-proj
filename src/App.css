@@ -4,17 +4,13 @@ h1 {
   padding: 0;
 }
 
-* {
-  border-radius: 0px;
-}
-
 a {
   text-decoration: none;
   color: inherit;
 }
 
 body {
-  font-family: 'Cambria, Cochin, Georgia, Times, Times New Roman', serif;
+  font-family: 'Helvetica, Arial', sans-serif;
 }
 
 em {
@@ -120,6 +116,8 @@ em {
 
 .header {
   display: flex;
+  direction: row;
+  justify-content: center;
   align-items: center;
   min-height: 70px;
   width: 100%;
@@ -127,6 +125,7 @@ em {
   color: #000;
   margin-bottom: 1rem;
   background-color: #dcf3fc;
+  font-family: 'Josefin Sans';
 }
 
 .header a {
@@ -136,7 +135,7 @@ em {
 }
 
 .header-title {
-  margin: 20 auto auto;
+  margin-right: 50px;
   font-size: 2rem;
   font-weight: normal;
   color: #1a86b0;
@@ -174,10 +173,20 @@ em {
 }
 
 .searchbox {
-  margin-bottom: 2rem;
+  width: 350px;
+  margin-right: 100px;
 }
 
 .pagination {
   margin: 2rem auto;
   text-align: center;
+}
+
+.trending {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: -40px;
+  width: 300px;
+  background-color: #dcf3fc;
 }

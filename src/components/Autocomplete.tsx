@@ -6,7 +6,7 @@ import {
   useRef,
   useState
 } from "react";
-import { render as reactRender } from 'react-dom';
+import { render } from "react-dom";
 
 import { usePagination, useSearchBox } from "react-instantsearch-hooks";
 import { autocomplete, AutocompleteOptions } from "@algolia/autocomplete-js";
@@ -22,53 +22,59 @@ type SetInstantSearchUiStateOptions = {
   query: string;
 };
 
-const render: any = reactRender;
-
 export function Autocomplete({
-    className,
-    ...autocompleteProps
-  }: AutocompleteProps) {
-    const autocompleteContainer = useRef<HTMLDivElement>(null);
-  
-    const { query, refine: setQuery } = useSearchBox();
-    const { refine: setPage } = usePagination();
-  
-    const [instantSearchUiState, setInstantSearchUiState] = useState<
-      SetInstantSearchUiStateOptions
-    >({ query });
-  
-    useEffect(() => {
-      setQuery(instantSearchUiState.query);
-      setPage(0);
-    }, [instantSearchUiState]);
-  
-    useEffect(() => {
-      if (!autocompleteContainer.current) {
-        return;
-      }
-  
-      const autocompleteInstance = autocomplete({
-        ...autocompleteProps,
-        container: autocompleteContainer.current,
-        initialState: { query },
-        onReset() {
-          setInstantSearchUiState({ query: "" });
-        },
-        onSubmit({ state }) {
-          setInstantSearchUiState({ query: state.query });
-        },
-        onStateChange({ prevState, state }) {
-          if (prevState.query !== state.query) {
-            setInstantSearchUiState({
-              query: state.query
-            });
-          }
-        },
-        renderer: { createElement, Fragment, render },
-      });
-  
-      return () => autocompleteInstance.destroy();
-    }, []);
-  
-    return <div className={className} ref={autocompleteContainer} />;
-  }
+  className,
+  ...autocompleteProps
+}: AutocompleteProps) {
+  const autocompleteContainer = useRef<HTMLDivElement>(null);
+
+  const { query, refine: setQuery } = useSearchBox();
+  const { refine: setPage } = usePagination();
+
+  const [instantSearchUiState, setInstantSearchUiState] = useState<
+    SetInstantSearchUiStateOptions
+  >({ query });
+
+  useEffect(() => {
+    setQuery(instantSearchUiState.query);
+    setPage(0);
+  }, [instantSearchUiState]);
+
+  useEffect(() => {
+    if (!autocompleteContainer.current) {
+      return;
+    }
+
+    const autocompleteInstance = autocomplete({
+      ...autocompleteProps,
+      container: autocompleteContainer.current,
+      initialState: { query },
+      onReset() {
+        setInstantSearchUiState({ query: "" });
+      },
+      onSubmit({ state }) {
+        setInstantSearchUiState({ query: state.query });
+      },
+      onStateChange({ prevState, state }) {
+        if (prevState.query !== state.query) {
+          setInstantSearchUiState({
+            query: state.query
+          });
+        }
+      },
+      renderer: { createElement, Fragment, render },
+    });
+
+    return () => autocompleteInstance.destroy();
+  }, []);
+
+  return <div className={className} ref={autocompleteContainer} />;
+}
+
+// Component
+
+{/* <Autocomplete
+placeholder="Search products"
+detachedMediaQuery="none"
+openOnFocus
+/> */}

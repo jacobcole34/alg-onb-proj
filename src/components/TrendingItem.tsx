@@ -6,7 +6,6 @@ const recommendClient = recommend('4SKQ3KZ62A', 'a54a9c30ef9bf61a392498d6db48f6b
 const indexName = 'dev_unesco_transformed';
 
 export function TrendingItem({ item }) {
-    console.log(item);
     return (
         <div className="trenditem">
             <a href={item.link} target="_blank">

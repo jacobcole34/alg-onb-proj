@@ -9,11 +9,10 @@ import type { SendEventForHits } from 'instantsearch.js/es/lib/utils';
 import { Autocomplete } from './components/Autocomplete';
 import { 
   MapContainer,
-  Marker,
-  Popup,
   TileLayer,
-  useMapEvents,
 } from 'react-leaflet';
+
+import { Sites } from './components/Sites';
 
 // InstantSearch
 import {
@@ -114,20 +113,23 @@ export function App() {
                 </div>
 
                 <div className="search-panel__results">
+                <MapContainer
+                  className="map"
+                  center={[48.85, 2.35]}
+                  zoom={10}
+                  minZoom={4}
+                  scrollWheelZoom={true}
+                >
+                  <Sites />
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+          </MapContainer>
                   <Hits hitComponent={Hit} />
 
                   <div className="pagination">
                     <Pagination />
-                    <MapContainer
-                      className="map"
-                      center={[48.85, 2.35]}
-                      zoom={10}
-                    >
-                      <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                      />
-                    </MapContainer>
                     <div className="trending">                
                     <FrequentlyBoughtTogether
                       recommendClient={recommendClient}
@@ -146,6 +148,8 @@ export function App() {
                   </div>
                 </div>
               </div>
+          </div>
+          <div>
           </div>
         </InstantSearch>
       </div>

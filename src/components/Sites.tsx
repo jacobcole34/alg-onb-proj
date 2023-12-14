@@ -1,20 +1,22 @@
-// Airports.tsx
 import React from 'react';
 import { Marker, Popup } from 'react-leaflet';
 import { useGeoSearch } from 'react-instantsearch';
+import 'leaflet/dist/leaflet.css';
 
-type Site = {
-  name: string;
-  city: string;
-  country: string;
-  iata_code: string;
-  links_count: number;
-}
+import L from 'leaflet';
+
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+    iconUrl: require('leaflet/dist/images/marker-icon.png'),
+    shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+});
 
 export function Sites() {
   const {
     items,
-  } = useGeoSearch<Site>();
+  } = useGeoSearch();
 
   return (
     <>

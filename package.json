@@ -11,10 +11,12 @@
     "@algolia/autocomplete-theme-classic": "^1.12.1",
     "@algolia/recommend-js": "^1.10.0",
     "@algolia/recommend-react": "^1.10.0",
+    "@types/react-leaflet": "^3.0.0",
     "algoliasearch": "4",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-instantsearch": "7.2.0",
+    "react-instantsearch-dom": "^6.40.4",
     "react-instantsearch-hooks": "^6.47.3",
     "react-leaflet": "^4.2.1",
     "react-modal": "^3.16.1"

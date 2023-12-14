@@ -27,7 +27,8 @@ import Hit from './components/Hit';
 import AlgoliaHitModal from './components/AlgoliaHitModal';
 import { Sites } from './components/Sites';
 import { TrendingItem } from './components/TrendingItem';
-import { RelatedItem } from './components/RelatedItem'
+import { RelatedItem } from './components/RelatedItem';
+import { Autocomplete } from './components/Autocomplete';
 
 // CSS
 import './App.css';
@@ -57,25 +58,24 @@ export function App() {
       routing
     >
       <div>
+        <header className="header">
+          <h1 className="header-title">
+            <a href="/">🌍 UNESCO World Heritage Site Finder</a>
+          </h1>
+          <SearchBox placeholder="Discover a heritage site near you..." className="searchbox" />
+          {/* <Autocomplete
+            placeholder="Search products"
+            detachedMediaQuery="none"
+            openOnFocus
+            className="searchbox"
+            /> */}
+          </header>
         <div className="background">
-
-            <header className="header">
-              <h1 className="header-title">
-                <a href="/">🌍 UNESCO World Heritage Site Finder</a>
-              </h1>
-              <SearchBox placeholder="Discover a heritage site near you..." className="searchbox" />
-              {/* <Autocomplete
-                placeholder="Search products"
-                detachedMediaQuery="none"
-                openOnFocus
-                className="searchbox"
-                /> */}
-            </header>
             <div className="container">
-                <Configure hitsPerPage={10} 
+                <Configure hitsPerPage={5} // add geo query parameters => use state hooks to change
                 />
                 <div className="search-panel">
-                  <div className="search-panel__filters">
+                  <div className="facets-filters">
                     <CurrentRefinements includedAttributes={['category','flag', 'hierarchy.LVL0', 'hierarchy.LVL1']} className="current-refinements"/>
                     <ClearRefinements 
                       includedAttributes={['category','states_name_en']}
@@ -105,20 +105,22 @@ export function App() {
                     </DynamicWidgets>
                   </div>
 
-                  <div className="search-panel__results">
-                  <MapContainer
-                      className="map"
-                      center={[48.85, 2.35]}
-                      zoom={10}
-                      minZoom={4}
-                      scrollWheelZoom={true}
-                    >
-                      <Sites />
-                      <TileLayer
-                        attribution={'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                      />
-                  </MapContainer>
+                  <div className="middle">
+                    <MapContainer
+                        className="map"
+                        center={[48.85, 2.35]}
+                        zoom={10}
+                        minZoom={1}
+                        scrollWheelZoom={true}
+                      >
+                        <Sites />
+                        <TileLayer
+                          attribution={'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}
+                          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                          className="tiles"
+                        />
+                    </MapContainer>
+                  <br />
                   <SortBy
                     items={[
                       { label: 'Sort A-Z', value: 'instant_search' },
@@ -126,13 +128,18 @@ export function App() {
                       { label: 'Z-A', value: 'instant_search_price_desc' },
                     ]}
                   />
+                    <br />
+                    <div class="allhits">
                     <Hits hitComponent={Hit}>
-                    <AlgoliaHitModal />
+                      <AlgoliaHitModal />
                     </Hits>
                     <div className="pagination">
                       <Pagination />
-                      <div className="trending">                
-                      <FrequentlyBoughtTogether
+                    </div>       
+                    </div>
+                  </div>
+                  <div className="trending">
+                  <FrequentlyBoughtTogether
                         recommendClient={recommendClient}
                         indexName={indexName}
                         objectIDs={['c876a922f0bf8_dashboard_generated_id']}
@@ -145,8 +152,6 @@ export function App() {
                         itemComponent={TrendingItem}
                         // view={ListView}
                       />
-                      </div>
-                    </div>
                   </div>
                 </div>
             </div>

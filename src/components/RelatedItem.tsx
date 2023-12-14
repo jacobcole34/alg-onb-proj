@@ -11,3 +11,4 @@ export function RelatedItem({ item }) {
     );
   }
 
+// https://www.algolia.com/doc/ui-libraries/recommend/api-reference/recommend-react/FrequentlyBoughtTogether/#param-headercomponent

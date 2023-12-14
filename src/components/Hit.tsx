@@ -66,7 +66,7 @@ function Hit({ hit, sendEvent }: HitProps) {
           </p>
           <p className="parent-container">
           <a href={hit.link} target="_blank"><button className="link-button">Learn More</button></a>
-          <button onClick={(hit) => { console.log('Open Modal'); openModal(hit); }}>Open Modal</button>
+          <button onClick={(hit) => { console.log('Open Modal'); openModal(hit); }} className="link-button">Open Modal</button>
           <FavoriteButton hit={hit} sendEvent={sendEvent} /><Highlight attribute="region_en" hit={hit} />
           </p>
         </div>

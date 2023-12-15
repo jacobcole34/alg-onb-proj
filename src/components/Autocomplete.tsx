@@ -1,18 +1,12 @@
-import React from "react";
-import {
-  createElement,
-  Fragment,
-  useEffect,
-  useRef,
-  useState
-} from "react";
-import { render } from "react-dom";
+import React from 'react';
+import { createElement, Fragment, useEffect, useRef, useState } from 'react';
+import { render } from 'react-dom';
 
-import { usePagination, useSearchBox } from "react-instantsearch-hooks";
-import { autocomplete, AutocompleteOptions } from "@algolia/autocomplete-js";
-import { BaseItem } from "@algolia/autocomplete-core";
+import { usePagination, useSearchBox } from 'react-instantsearch-hooks';
+import { autocomplete, AutocompleteOptions } from '@algolia/autocomplete-js';
+import { BaseItem } from '@algolia/autocomplete-core';
 
-import "@algolia/autocomplete-theme-classic";
+import '@algolia/autocomplete-theme-classic';
 
 type AutocompleteProps = Partial<AutocompleteOptions<BaseItem>> & {
   className?: string;
@@ -31,9 +25,8 @@ export function Autocomplete({
   const { query, refine: setQuery } = useSearchBox();
   const { refine: setPage } = usePagination();
 
-  const [instantSearchUiState, setInstantSearchUiState] = useState<
-    SetInstantSearchUiStateOptions
-  >({ query });
+  const [instantSearchUiState, setInstantSearchUiState] =
+    useState<SetInstantSearchUiStateOptions>({ query });
 
   useEffect(() => {
     setQuery(instantSearchUiState.query);
@@ -50,7 +43,7 @@ export function Autocomplete({
       container: autocompleteContainer.current,
       initialState: { query },
       onReset() {
-        setInstantSearchUiState({ query: "" });
+        setInstantSearchUiState({ query: '' });
       },
       onSubmit({ state }) {
         setInstantSearchUiState({ query: state.query });
@@ -58,7 +51,7 @@ export function Autocomplete({
       onStateChange({ prevState, state }) {
         if (prevState.query !== state.query) {
           setInstantSearchUiState({
-            query: state.query
+            query: state.query,
           });
         }
       },
@@ -73,8 +66,10 @@ export function Autocomplete({
 
 // Component
 
-{/* <Autocomplete
+{
+  /* <Autocomplete
 placeholder="Search products"
 detachedMediaQuery="none"
 openOnFocus
-/> */}
+/> */
+}

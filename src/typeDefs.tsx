@@ -1,12 +1,12 @@
 export type AutocompleteProps = Partial<AutocompleteOptions<BaseItem>> & {
-    className?: string;
-  };
-  
+  className?: string;
+};
+
 export type SetInstantSearchUiStateOptions = {
-query: string;
+  query: string;
 };
 
 export type HitProps = {
-hit: Hit;
-sendEvent: SendEventForHits;
+  hit: Hit;
+  sendEvent: SendEventForHits;
 };

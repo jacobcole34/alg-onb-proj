@@ -256,3 +256,11 @@ li.ais-Hits-item {
   flex-wrap: wrap;
   border-radius: 10;
 }
+
+.header-h3 {
+  font-family: 'Josefin Sans';
+  font-size: 1.2rem;
+  text-align: center;
+  margin-left: 40px;
+  color: #0c5f7f;
+}

@@ -21,14 +21,13 @@ import {
 import recommend from '@algolia/recommend';
 import { FrequentlyBoughtTogether, TrendingItems} from '@algolia/recommend-react';
 import { MapContainer, TileLayer } from 'react-leaflet';
+import { TrendingItem, TrendingHeader } from './components/TrendingItem';
+import { RelatedItem, RelatedHeader } from './components/RelatedItem';
 
 // Components
 import Hit from './components/Hit';
 import AlgoliaHitModal from './components/AlgoliaHitModal';
 import { Sites } from './components/Sites';
-import { TrendingItem } from './components/TrendingItem';
-import { RelatedItem } from './components/RelatedItem';
-import { Autocomplete } from './components/Autocomplete';
 
 // CSS
 import './App.css';
@@ -144,14 +143,16 @@ export function App() {
                         indexName={indexName}
                         objectIDs={['c876a922f0bf8_dashboard_generated_id']}
                         itemComponent={RelatedItem}
-                      />
-                      <TrendingItems
-                        recommendClient={recommendClient}
-                        indexName={indexName}
-                        maxRecommendations={4}
-                        itemComponent={TrendingItem}
-                        // view={ListView}
-                      />
+                        headerComponent={RelatedHeader}
+                  />
+                  <TrendingItems
+                    recommendClient={recommendClient}
+                    indexName={indexName}
+                    maxRecommendations={5}
+                    itemComponent={TrendingItem}
+                    headerComponent={TrendingHeader}
+                    // view={ListView}
+                  />
                   </div>
                 </div>
             </div>

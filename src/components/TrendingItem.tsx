@@ -1,9 +1,13 @@
 import React from 'react';
-import { TrendingItems } from '@algolia/recommend-react';
-import recommend from '@algolia/recommend';
 
-const recommendClient = recommend('4SKQ3KZ62A', 'a54a9c30ef9bf61a392498d6db48f6b3');
-const indexName = 'dev_unesco_transformed';
+export function TrendingHeader(props) {
+
+  return (
+    <h3 className="header-h3">
+      POPULAR HERITAGE SITES
+    </h3>
+  );
+}
 
 export function TrendingItem({ item }) {
     return (

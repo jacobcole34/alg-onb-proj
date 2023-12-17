@@ -3,20 +3,16 @@ import { Highlight } from 'react-instantsearch';
 import type { Hit } from 'instantsearch.js';
 import FavoriteButton from './FavoriteButton';
 import { HitProps } from '../typeDefs';
+import { AlgoliaHitModal } from './AlgoliaHitModal';
 
 function Hit({ hit, sendEvent }: HitProps) {
-  const [selectedHit, setSelectedHit] = useState(null);
-  const [isOpen, setIsModalOpen] = useState(false);
 
-  const openModal = (hit) => {
-    setSelectedHit(hit);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
-    setSelectedHit(null);
-    setIsModalOpen(false);
-  };
 
   const flag = hit.flag;
   let flagClass = '';
@@ -41,6 +37,7 @@ function Hit({ hit, sendEvent }: HitProps) {
 
   return (
     <article className="hit">
+      {/* <AlgoliaHitModal /> */}
       {hit.image && (
         <div className="hit-thumbnail">
           <img src={hit.image} alt={hit.name_en} />
@@ -66,10 +63,11 @@ function Hit({ hit, sendEvent }: HitProps) {
             <button className="link-button">Learn More</button>
           </a>
           <button
-            onClick={(hit) => {
-              console.log('Open Modal');
-              openModal(hit);
-            }}
+            // onClick={(hit) => {
+            //   console.log('Open Modal');
+            //   openModal(hit);
+            // }}
+            onClick={openModal}
             className="link-button"
           >
             Open Modal

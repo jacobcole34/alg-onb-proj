@@ -264,3 +264,7 @@ li.ais-Hits-item {
   margin-left: 40px;
   color: #0c5f7f;
 }
+
+.ais-SortBy div{
+  background-color: hotpink;
+}

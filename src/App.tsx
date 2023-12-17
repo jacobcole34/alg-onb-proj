@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import algoliasearch from 'algoliasearch/lite';
 import aa from 'search-insights';
 
@@ -19,10 +19,7 @@ import {
 
 //Recommend
 import recommend from '@algolia/recommend';
-import {
-  FrequentlyBoughtTogether,
-  TrendingItems,
-} from '@algolia/recommend-react';
+import { FrequentlyBoughtTogether, TrendingItems } from '@algolia/recommend-react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { TrendingItem, TrendingHeader } from './components/TrendingItem';
 import { RelatedItem, RelatedHeader } from './components/RelatedItem';
@@ -54,6 +51,7 @@ aa('init', {
 });
 
 export function App() {
+
   return (
     <InstantSearch
       searchClient={searchClient}
@@ -137,16 +135,14 @@ export function App() {
                 <br />
                 <SortBy
                   items={[
-                    { label: 'Sort A-Z', value: 'instant_search' },
-                    { label: 'A-Z', value: 'instant_search_price_asc' },
-                    { label: 'Z-A', value: 'instant_search_price_desc' },
+                    { label: 'Sort A-Z', value: 'dev_unesco_transformed' },
+                    { label: 'A-Z', value: 'dev_unesco_transformed_az' },
+                    { label: 'Z-A', value: 'dev_unesco_transformed_za' },
                   ]}
                 />
                 <br />
                 <div class="allhits">
-                  <Hits hitComponent={Hit}>
-                    <AlgoliaHitModal />
-                  </Hits>
+                  <Hits hitComponent={Hit}/>
                   <div className="pagination">
                     <Pagination />
                   </div>

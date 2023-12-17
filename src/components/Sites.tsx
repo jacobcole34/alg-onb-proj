@@ -1,6 +1,6 @@
 import React from 'react';
 import { Marker, Popup } from 'react-leaflet';
-import { useGeoSearch } from 'react-instantsearch';
+import { useGeoSearch, useSearchBox } from 'react-instantsearch';
 import 'leaflet/dist/leaflet.css';
 
 import L from 'leaflet';

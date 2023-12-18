@@ -7,6 +7,8 @@ import { AlgoliaHitModal } from './AlgoliaHitModal';
 import { RelatedItem, RelatedHeader } from './RelatedItem';
 import recommend from '@algolia/recommend';
 import { FrequentlyBoughtTogether, TrendingItems } from '@algolia/recommend-react';
+import { HorizontalSlider } from '@algolia/ui-components-horizontal-slider-react';
+import '@algolia/ui-components-horizontal-slider-theme';
 
 const recommendClient = recommend(
   '4SKQ3KZ62A',
@@ -17,14 +19,17 @@ const indexName = 'dev_unesco_transformed';
 // Define the AlternativeContent component
 function AlternativeContent({ objectID }: { objectID: string }) {
   return (
-    <div>
-      <FrequentlyBoughtTogether
-        recommendClient={recommendClient}
-        indexName={indexName}
-        objectIDs={[objectID]} // Pass the objectID as a prop to the component
-        itemComponent={RelatedItem}
-        headerComponent={RelatedHeader}
-      />
+    <div className="frequently">
+      <div className="frequently-child">
+        <FrequentlyBoughtTogether
+          recommendClient={recommendClient}
+          indexName={indexName}
+          objectIDs={[objectID]} // Pass the objectID as a prop to the component
+          itemComponent={RelatedItem}
+          headerComponent={RelatedHeader}
+          view={HorizontalSlider}
+        />
+      </div>
     </div>
   );
 }

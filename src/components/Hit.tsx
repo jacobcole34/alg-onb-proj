@@ -4,15 +4,42 @@ import type { Hit } from 'instantsearch.js';
 import FavoriteButton from './FavoriteButton';
 import { HitProps } from '../typeDefs';
 import { AlgoliaHitModal } from './AlgoliaHitModal';
+import { RelatedItem, RelatedHeader } from './RelatedItem';
+import recommend from '@algolia/recommend';
+import { FrequentlyBoughtTogether, TrendingItems } from '@algolia/recommend-react';
+
+const recommendClient = recommend(
+  '4SKQ3KZ62A',
+  'a54a9c30ef9bf61a392498d6db48f6b3'
+);
+const indexName = 'dev_unesco_transformed';
+
+// Define the AlternativeContent component
+function AlternativeContent({ objectID }: { objectID: string }) {
+  return (
+    <div>
+      <FrequentlyBoughtTogether
+        recommendClient={recommendClient}
+        indexName={indexName}
+        objectIDs={[objectID]} // Pass the objectID as a prop to the component
+        itemComponent={RelatedItem}
+        headerComponent={RelatedHeader}
+      />
+    </div>
+  );
+}
 
 function Hit({ hit, sendEvent }: HitProps) {
-
+  const [showSimilar, setShowSimilar] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
   };
 
+  const handleSeeSimilarClick = () => {
+    setShowSimilar(!showSimilar);
+  };
 
   const flag = hit.flag;
   let flagClass = '';
@@ -37,45 +64,46 @@ function Hit({ hit, sendEvent }: HitProps) {
 
   return (
     <article className="hit">
-      {/* <AlgoliaHitModal /> */}
-      {hit.image && (
-        <div className="hit-thumbnail">
-          <img src={hit.image} alt={hit.name_en} />
-        </div>
+      {showSimilar ? (
+        // Display the alternative content when showSimilar is true
+        <AlternativeContent objectID={hit.objectID} />
+      ) : (
+        // Display the main content when showSimilar is false
+        <>
+          {/* Your existing content here */}
+          {hit.image && (
+            <div className="hit-thumbnail">
+              <img src={hit.image} alt={hit.name_en} />
+            </div>
+          )}
+          <div className="hit-content">
+            <h1>
+              <Highlight attribute="name_en" hit={hit} />
+            </h1>
+            <p>
+              <Highlight attribute="short_description_en" hit={hit} />
+            </p>
+            <p>
+              <Highlight attribute="category" hit={hit} />
+            </p>
+            <p>
+              <strong>Country: </strong>
+              <Highlight attribute="states_name_en" hit={hit} />
+              {flagText && <span className={`flag ${flagClass}`}>{flagText}</span>}
+            </p>
+            <p className="parent-container">
+              <a href={hit.link} target="_blank">
+                <button className="link-button">Learn More</button>
+              </a>
+              <button onClick={handleSeeSimilarClick} className="link-button">
+                See Similar
+              </button>
+              <FavoriteButton hit={hit} sendEvent={sendEvent} />
+              <Highlight attribute="region_en" hit={hit} />
+            </p>
+          </div>
+        </>
       )}
-      <div className="hit-content">
-        <h1>
-          <Highlight attribute="name_en" hit={hit} />
-        </h1>
-        <p>
-          <Highlight attribute="short_description_en" hit={hit} />
-        </p>
-        <p>
-          <Highlight attribute="category" hit={hit} />
-        </p>
-        <p>
-          <strong>Country: </strong>
-          <Highlight attribute="states_name_en" hit={hit} />
-          {flagText && <span className={`flag ${flagClass}`}>{flagText}</span>}
-        </p>
-        <p className="parent-container">
-          <a href={hit.link} target="_blank">
-            <button className="link-button">Learn More</button>
-          </a>
-          <button
-            // onClick={(hit) => {
-            //   console.log('Open Modal');
-            //   openModal(hit);
-            // }}
-            onClick={openModal}
-            className="link-button"
-          >
-            Open Modal
-          </button>
-          <FavoriteButton hit={hit} sendEvent={sendEvent} />
-          <Highlight attribute="region_en" hit={hit} />
-        </p>
-      </div>
     </article>
   );
 }

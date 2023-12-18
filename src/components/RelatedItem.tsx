@@ -1,7 +1,7 @@
 import React from 'react';
 
 export function RelatedHeader(props) {
-  return <h3 className="header-h3">SIMILAR FAVORITES</h3>;
+  return <h3 className="header-h3">TRAVELERS ALSO FAVORITED</h3>;
 }
 
 export function RelatedItem({ item }) {
@@ -9,7 +9,7 @@ export function RelatedItem({ item }) {
     <div className="trenditem">
       <a href={item.link} target="_blank">
         <p>{item.name_en}</p>
-        <img src={item.image} style={{ maxWidth: '100%', height: 'auto' }} />
+        <img src={item.image} style={{ maxWidth: '200px', height: 'auto' }} />
       </a>
     </div>
   );

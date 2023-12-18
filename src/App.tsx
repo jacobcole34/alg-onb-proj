@@ -102,7 +102,6 @@ export function App() {
                   className="current-refinements"
                 />
                 <ClearRefinements
-                  includedAttributes={['category', 'states_name_en']}
                   translations={{
                     resetButtonText: 'Clear All',
                   }}
@@ -159,17 +158,10 @@ export function App() {
                 </div>
               </div>
               <div className="trending">
-                <FrequentlyBoughtTogether
-                  recommendClient={recommendClient}
-                  indexName={indexName}
-                  objectIDs={['c876a922f0bf8_dashboard_generated_id']}
-                  itemComponent={RelatedItem}
-                  headerComponent={RelatedHeader}
-                />
                 <TrendingItems
                   recommendClient={recommendClient}
                   indexName={indexName}
-                  maxRecommendations={5}
+                  maxRecommendations={7}
                   itemComponent={TrendingItem}
                   headerComponent={TrendingHeader}
                   // view={ListView}

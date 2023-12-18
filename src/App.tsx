@@ -52,17 +52,19 @@ aa('init', {
 
 export function App() {
 
-  const [geoLocation, setGeoLocation] = useState();
+  const [geoLocation, setGeoLocation] = useState(null);
 
   async function getGeoLocationAndCenterMap() {
     const location = await fetchGeoLocation();
     if (location) {
       setGeoLocation(location);
-      console.log(location);
-      console.log(geoLocation);
+      // console.log('location is  ', location);
+      // console.log('geoLocation is  ', geoLocation);
+      window.location.reload();
     }
   }
 
+  console.log(geoLocation);
 
   return (
     <InstantSearch
@@ -126,7 +128,7 @@ export function App() {
               <div className="middle">
                 <MapContainer
                   className="map"
-                  center={geoLocation ? [location.latitude, location.longitude] :[48.85, 2.35]}
+                  center={geoLocation ? [location.latitude, location.longitude] :[33.7043, -84.3742]}
                   zoom={10}
                   minZoom={1}
                   scrollWheelZoom={true}

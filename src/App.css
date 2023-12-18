@@ -74,6 +74,19 @@ img {
   margin-left: 10px;
 }
 
+.link-button2 {
+  background-color: #37c2f9;
+  width: 95%;
+  height: 50px;
+  color: white;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #37c2f9;
+  padding: 10px;
+  margin-left: 10px;
+}
+
 .hit {
   flex: 1; /* Occupy equal width for each hit in a row */
   display: flex;

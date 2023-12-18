@@ -52,6 +52,18 @@ aa('init', {
 
 export function App() {
 
+  const [geoLocation, setGeoLocation] = useState();
+
+  async function getGeoLocationAndCenterMap() {
+    const location = await fetchGeoLocation();
+    if (location) {
+      setGeoLocation(location);
+      console.log(location);
+      console.log(geoLocation);
+    }
+  }
+
+
   return (
     <InstantSearch
       searchClient={searchClient}
@@ -68,12 +80,7 @@ export function App() {
             placeholder="Discover a heritage site near you..."
             className="searchbox"
           />
-          {/* <Autocomplete
-            placeholder="Search products"
-            detachedMediaQuery="none"
-            openOnFocus
-            className="searchbox"
-            /> */}
+
         </header>
         <div className="background">
           <div className="container">
@@ -82,6 +89,7 @@ export function App() {
             />
             <div className="search-panel">
               <div className="facets-filters">
+              <button onClick={getGeoLocationAndCenterMap} className="link-button2">Find Near Me</button><br />
                 <CurrentRefinements
                   includedAttributes={[
                     'category',
@@ -94,7 +102,7 @@ export function App() {
                 <ClearRefinements
                   includedAttributes={['category', 'states_name_en']}
                   translations={{
-                    resetButtonText: 'Clear all',
+                    resetButtonText: 'Clear All',
                   }}
                   className="clearRefinements"
                 />
@@ -118,7 +126,7 @@ export function App() {
               <div className="middle">
                 <MapContainer
                   className="map"
-                  center={[48.85, 2.35]}
+                  center={geoLocation ? [location.latitude, location.longitude] :[48.85, 2.35]}
                   zoom={10}
                   minZoom={1}
                   scrollWheelZoom={true}
@@ -141,7 +149,7 @@ export function App() {
                   ]}
                 />
                 <br />
-                <div class="allhits">
+                <div className="allhits">
                   <Hits hitComponent={Hit}/>
                   <div className="pagination">
                     <Pagination />
@@ -172,4 +180,21 @@ export function App() {
       </div>
     </InstantSearch>
   );
+}
+
+async function fetchGeoLocation() {
+  try {
+    const response = await fetch('http://ip-api.com/json');
+    if (!response.ok) {
+      throw new Error('Unable to fetch geo-location.');
+    }
+    const data = await response.json();
+    return {
+      latitude: data.lat,
+      longitude: data.lon,
+    };
+  } catch (error) {
+    console.error('Error fetching geo-location:', error);
+    return null;
+  }
 }

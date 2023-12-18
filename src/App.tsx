@@ -28,6 +28,8 @@ import { RelatedItem, RelatedHeader } from './components/RelatedItem';
 import Hit from './components/Hit';
 import AlgoliaHitModal from './components/AlgoliaHitModal';
 import { Sites } from './components/Sites';
+import { SearchBoxWithSuggestions } from './components/CustomSearch';
+// import { CustomSearch } from './components/CustomSearch';
 
 // CSS
 import './App.css';
@@ -87,7 +89,7 @@ export function App() {
         <div className="background">
           <div className="container">
             <Configure
-              hitsPerPage={5} // add geo query parameters => use state hooks to change
+              hitsPerPage={100} // add geo query parameters => use state hooks to change
             />
             <div className="search-panel">
               <div className="facets-filters">
